@@ -42,7 +42,10 @@ function CardElement({imgSrc, recipeName, altText, recipeDescription, instructio
                     <div
                     className="fixed w-1/3 left-1/3 right-1/3 bg-orange-50 max-h-[90vh] top-8 rounded-lg overflow-auto">
                         <div className="relative py-2 px-5 flex flex-col gap-2 justify-around">
-                            
+                            <h1 className="px-5 font-bold text-lg">{recipeName}</h1>
+                            <div>
+                                <img className="rounded-lg" src={imgSrc}></img>
+                            </div>
                             {/* Top Orange Bar containing the recipe time, vegan and vegetarian info */}
                             <div className="flex flex-row w-full items-center justify-center mx-auto gap-5">
                                 <div className="flex flex-row items-center w-max px-3 justify-center gap-2 bg-orange-400 rounded-lg">
@@ -59,11 +62,6 @@ function CardElement({imgSrc, recipeName, altText, recipeDescription, instructio
                                     <img src="/vegetarian.png" className="w-4 h-4"/>
                                     <h1 className="text-sm py-1">Vegetarian ✔</h1>
                                 </div>}
-                            </div>
-                            
-                            <h1 className="px-5 font-bold">{recipeName}</h1>
-                            <div>
-                                <img className="rounded-lg" src={imgSrc}></img>
                             </div>
                             <div className="w-full bg-orange-300 rounded-lg py-2">
                                 <h1 className="px-5 text-start mt-4 font-medium">Instructions:</h1>
