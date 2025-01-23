@@ -57,6 +57,9 @@ function Cards({recipes, setRecipes}){
                                                             altText={recipe.altText} 
                                                             recipeDescription={recipe.summary}
                                                             instructions={recipe.instructions}
+                                                            timeToCook={recipe.timeToCook}
+                                                            veganState={recipe.vegan}
+                                                            vegeState ={recipe.vegetarian}
                                                             />
             })}
             </div>

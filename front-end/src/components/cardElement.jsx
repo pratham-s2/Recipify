@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function CardElement({imgSrc, recipeName, altText, recipeDescription, instructions}){
+function CardElement({imgSrc, recipeName, altText, recipeDescription, instructions, timeToCook, veganState, vegeState}){
     
     const [favState,setFavState] = useState(false);
     const [readMoreModalState, setModalState] = useState(false);
@@ -18,6 +18,18 @@ function CardElement({imgSrc, recipeName, altText, recipeDescription, instructio
         }
     }
 
+    useEffect(() => {
+        if (readMoreModalState) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
+
+        return () => {
+            document.body.style.overflow = "auto";
+        };
+    }, [readMoreModalState]);
+
     return(
         <div className="overflow-auto">
             {/* Read More Modal */}
@@ -28,16 +40,37 @@ function CardElement({imgSrc, recipeName, altText, recipeDescription, instructio
                     className="w-screen h-screen bg-[rgba(0,0,0,0.5)] fixed top-0 left-0">
                     </div>
                     <div
-                    className="fixed w-1/3 left-1/3 right-1/3 bg-white max-h-[90vh] top-5 rounded-lg overflow-auto">
-                        <div className="relative py-2 flex flex-col justify-around">
+                    className="fixed w-1/3 left-1/3 right-1/3 bg-orange-50 max-h-[90vh] top-8 rounded-lg overflow-auto">
+                        <div className="relative py-2 px-5 flex flex-col gap-2 justify-around">
+                            
+                            {/* Top Orange Bar containing the recipe time, vegan and vegetarian info */}
+                            <div className="flex flex-row w-full items-center justify-center mx-auto gap-5">
+                                <div className="flex flex-row items-center w-max px-3 justify-center gap-2 bg-orange-400 rounded-lg">
+                                    <img src="/time.svg" className="w-4 h-4"/>
+                                    <h1 className="py-1">{timeToCook}</h1>
+                                </div>
+                                {veganState==1 && 
+                                    <div className="flex flex-row items-center w-max px-3 justify-center gap-2 bg-orange-400 rounded-lg">
+                                    <img src="/vegan.png" className="w-5 h-5"/>
+                                    <h1 className="text-sm py-1">Vegan ✔</h1>
+                                </div>}
+                                {vegeState==1 && 
+                                    <div className="flex flex-row items-center w-max px-3 justify-center gap-2 bg-orange-400 rounded-lg">
+                                    <img src="/vegetarian.png" className="w-4 h-4"/>
+                                    <h1 className="text-sm py-1">Vegetarian ✔</h1>
+                                </div>}
+                            </div>
+                            
                             <h1 className="px-5 font-bold">{recipeName}</h1>
-                            <img className="rounded-b-lg" src={imgSrc}></img>
-                            <hr className="border border-orange-400 mt-2"></hr>
-                            <h1 className="px-5 text-start mt-4 font-medium">Instructions:</h1>
-                            <p className="text-sm px-5 text-start break-words overflow-auto whitespace-normal text-ellipsis">{instructions}</p>
+                            <div>
+                                <img className="rounded-lg" src={imgSrc}></img>
+                            </div>
+                            <div className="w-full bg-orange-300 rounded-lg py-2">
+                                <h1 className="px-5 text-start mt-4 font-medium">Instructions:</h1>
+                                <p className="text-sm px-5 text-start break-words overflow-auto whitespace-normal text-ellipsis">{instructions}</p>
+                            </div>  
                             <button className="absolute right-2 top-2 hover:bg-slate-100"
                                 onClick={()=>setModalState(!readMoreModalState)}>X</button>
-                            <p className="read more at"></p>
                         </div>
                     </div>  
                 </div>       
