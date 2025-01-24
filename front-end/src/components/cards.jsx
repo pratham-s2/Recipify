@@ -2,10 +2,9 @@ import CardElement from './cardElement';
 import { useEffect, useState } from 'react';
 import Pagination from './pagination';
 
-function Cards({recipes, setRecipes, currentRecipes, setCurrentRecipes}){
+function Cards({recipes, setRecipes, currentRecipes, setCurrentRecipes, currentPage, setPage}){
 
-    const [currentPage, setPage] = useState(1);
-    const postsPerPage = 18;
+    const postsPerPage = 24;
     const firstPost = ((currentPage -1) * postsPerPage);
     const lastPost = currentPage * postsPerPage;
 

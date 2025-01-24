@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 function Landing(){
     const [recipes, setRecipes] = useState([]);
     const [currentRecipes, setCurrentRecipes] = useState([]);
+    const [currentPage, setPage] = useState(1);
     const searchQuery = useRef("");
 
         function handleChange (e){
@@ -12,6 +13,7 @@ function Landing(){
                 let data = localStorage.getItem("recipes");
                 data = JSON.parse(data);
                 setRecipes(data);
+                setPage(1);
             }
         }
 
@@ -27,6 +29,7 @@ function Landing(){
                     }
                     const data = await response.json();
                     setRecipes(data);
+                    setPage(1);
                 }  
             }
             catch(error){
@@ -52,7 +55,7 @@ function Landing(){
                 </div>
             </div>
             <div className='bg-slate-50'>
-                <Cards recipes={recipes} setRecipes={setRecipes} currentRecipes={currentRecipes} setCurrentRecipes={setCurrentRecipes}/>
+                <Cards recipes={recipes} setRecipes={setRecipes} currentRecipes={currentRecipes} setCurrentRecipes={setCurrentRecipes} currentPage={currentPage} setPage={setPage}/>
             </div> 
         </div>
     )
