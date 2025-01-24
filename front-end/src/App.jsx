@@ -1,8 +1,8 @@
 import Landing from './pages/landing';
 import Navbar from './components/navbar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Signup from './components/signup';
-import Login from './components/login';
+import Shopping from './pages/shopping'
+
 function App() {
 
   return(
@@ -10,9 +10,8 @@ function App() {
       <BrowserRouter>
         <Navbar/>
         <Routes>
-          <Route path='/signup' element={<Signup/>}/>
-          <Route path='/login' element={<Login/>}/>
           <Route exact path='/' element={<Landing/>}/>
+          <Route path='/shopping' element={<Shopping/>}/>
         </Routes>
       </BrowserRouter>
     </div>

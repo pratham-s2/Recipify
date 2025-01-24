@@ -2,13 +2,12 @@ import CardElement from './cardElement';
 import { useEffect, useState } from 'react';
 import Pagination from './pagination';
 
-function Cards({recipes, setRecipes}){
+function Cards({recipes, setRecipes, currentRecipes, setCurrentRecipes}){
 
     const [currentPage, setPage] = useState(1);
     const postsPerPage = 18;
     const firstPost = ((currentPage -1) * postsPerPage);
     const lastPost = currentPage * postsPerPage;
-    const [currentRecipes, setCurrentRecipes] = useState([]);
 
     async function getRecipes(){
         //check if recipes are on local storage
@@ -19,8 +18,6 @@ function Cards({recipes, setRecipes}){
                 const data = await response.json();
                 console.log(data);
                 setRecipes(data);
-                const pagedData = data.slice(firstPost, lastPost);
-                setCurrentRecipes(pagedData);
                 localStorage.setItem("recipes", JSON.stringify(data));
             }
             catch(error){
@@ -35,8 +32,6 @@ function Cards({recipes, setRecipes}){
                 const data = JSON.parse(response);
                 console.log(data);
                 setRecipes(data);
-                const pagedData = data.slice(firstPost, lastPost);
-                setCurrentRecipes(pagedData);
             }
             catch(error){
                 console.error(error);
@@ -44,16 +39,21 @@ function Cards({recipes, setRecipes}){
         }
     }
 
-    useEffect(()=>{getRecipes();});
+    function paginate(){
+        const pagedData = recipes.slice(firstPost, lastPost);
+        setCurrentRecipes(pagedData);
+    }
+
+    useEffect(()=>{getRecipes()},[]);
+    useEffect(()=>paginate(),[currentPage, recipes]);
+    
 
     function recipeLength(){
         if (!localStorage.getItem("recipes")){
-            return ""
+            return
         }
         else{
-            let filler = localStorage.getItem("recipes");
-            filler = JSON.parse(filler);
-            return filler.length;
+            return recipes.length;
         }   
     }
 

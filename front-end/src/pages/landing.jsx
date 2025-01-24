@@ -3,6 +3,7 @@ import { useState, useRef } from 'react';
 
 function Landing(){
     const [recipes, setRecipes] = useState([]);
+    const [currentRecipes, setCurrentRecipes] = useState([]);
     const searchQuery = useRef("");
 
         function handleChange (e){
@@ -51,7 +52,7 @@ function Landing(){
                 </div>
             </div>
             <div className='bg-slate-50'>
-                <Cards recipes={recipes} setRecipes={setRecipes}/>
+                <Cards recipes={recipes} setRecipes={setRecipes} currentRecipes={currentRecipes} setCurrentRecipes={setCurrentRecipes}/>
             </div> 
         </div>
     )
